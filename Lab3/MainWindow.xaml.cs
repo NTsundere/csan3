@@ -169,12 +169,12 @@ namespace Lab3
                                 chatHistory.Add(connectMsg);
                             }, null);
 
-                            // Запрос на получение истории сразу после подключения
-                            newUser.RequestHistory();  // Здесь добавляем вызов
+                           
+                            newUser.RequestHistory();  
 
                             ListenUser(newUser);
                         }
-                        catch { /* Игнорируем ошибки */ }
+                        catch {  }
                     });
                 }
                 Thread.Sleep(100);
@@ -193,7 +193,7 @@ namespace Lab3
                         var message = user.ReceiveMessage();
                         switch (message.Code)
                         {
-                            case TcpMessage.HISTORY_REQUEST: // Добавляем обработку запроса истории
+                            case TcpMessage.HISTORY_REQUEST:
                                 SendHistoryToNewUser(user);
                                 break;
 
@@ -244,7 +244,7 @@ namespace Lab3
             if (string.IsNullOrWhiteSpace(tbMessage.Text)) return;
 
             string message = $"{DateTime.Now} {Username} ({IpAddress}): {tbMessage.Text}";
-            chatHistory.Add(message.Replace("\r\n", "")); // Сохраняем в историю
+            chatHistory.Add(message.Replace("\r\n", "")); 
 
             // Отправка сообщения
             var tcpMessage = new TcpMessage(MESSAGE, IpAddress, message, false);
